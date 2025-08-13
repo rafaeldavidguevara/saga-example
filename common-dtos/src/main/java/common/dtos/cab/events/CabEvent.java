@@ -13,5 +13,5 @@ import java.util.UUID;
 public class CabEvent {
     private UUID driverId;
     private String registrationNumber;
-    private CabTypes cabTypes;
+    private CabTypes cabType;
 }

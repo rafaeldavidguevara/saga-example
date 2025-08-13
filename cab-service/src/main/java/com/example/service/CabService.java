@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.entity.Cab;
 import com.example.repository.CabRepository;
+import common.dtos.enums.CommonStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +31,9 @@ public class CabService {
 
     public void deleteCab(UUID id) {
         cabRepository.deleteById(id);
+    }
+
+    public boolean existsByRegistrationNumberAndCabStatus(String registrationNumber, CommonStatus commonStatus) {
+        return cabRepository.existsByRegistrationNumberAndCabStatus(registrationNumber, commonStatus);
     }
 }

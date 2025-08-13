@@ -5,6 +5,7 @@ import com.example.repository.DriverRepository;
 import common.dtos.cab.events.CabEvent;
 import common.dtos.driver.dto.DriverDto;
 import common.dtos.enums.CommonStatus;
+import jakarta.transaction.Transactional;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class DriverService {
                 .build());
         CabEvent cabEvent = CabEvent.builder()
                 .driverId(driver.getDriverId())
-                .cabTypes(driverDto.getCabDto().getCabType())
+                .cabType(driverDto.getCabDto().getCabType())
                 .registrationNumber(driverDto.getCabDto().getRegistrationNumber())
                 .build();
         cabEventKafkaTemplate.send(ADD_CAB_EVENTS, cabEvent);
@@ -45,5 +46,10 @@ public class DriverService {
 
     public Optional<Driver> getDriverById(UUID driverId) {
         return driverRepository.findById(driverId);
+    }
+
+    @Transactional
+    public int updateDriverStatus(UUID driverId, CommonStatus driverStatus) {
+        return driverRepository.updateDriverStatus(driverId, driverStatus);
     }
 }
