@@ -19,8 +19,8 @@ public class DriverController {
     }
 
     @PostMapping
-    public Driver saveDriver(@RequestBody Driver driver) {
-        return driverService.saveDriver(driver);
+    public String saveDriver(@RequestBody DriverDto driverDto) {
+        return driverService.saveDriver(driverDto);
     }
 
     @GetMapping
